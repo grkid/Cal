@@ -2,6 +2,7 @@ package com.czy.cal;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
 
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_UP;
@@ -149,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
     private void init()
     {
         vb=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);

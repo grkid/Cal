@@ -126,9 +126,11 @@ public class Calculator {
         //( 没有要求
         //运算符 前方不能是运算符和(
         //)前方不能是运算符和（
+        //数字的前方不能是)
         String a=getNext();
         int signBefore=0;
         int LbracketBefore=0;
+        int RbracketBefore=0;
         if(!isNumber(a)&&!a.equals("+")&&!a.equals("-")&&!a.equals("("))
         {
             //首部出现运算符
@@ -141,8 +143,14 @@ public class Calculator {
         {
             if(isNumber(a))
             {
+                if(RbracketBefore==1)
+                {
+                    CalculatorException e=new CalculatorException(CalculatorException.CAL_EXP_GRAMMAR);
+                    throw e;
+                }
                 signBefore=0;
                 LbracketBefore=0;
+                RbracketBefore=0;
                 a = getNext();
             }
             else
@@ -151,6 +159,7 @@ public class Calculator {
                 {
                     LbracketBefore=1;
                     signBefore=0;
+                    RbracketBefore=0;
                     a=getNext();
                 }
                 else if(a.equals(")"))
@@ -160,12 +169,14 @@ public class Calculator {
                         CalculatorException e=new CalculatorException(CalculatorException.CAL_EXP_GRAMMAR);
                         throw e;
                     }
+                    RbracketBefore=1;
                     signBefore=0;
                     LbracketBefore=0;
                     a=getNext();
                 }
                 else
                 {
+                    //普通运算符
                     if(signBefore==1||LbracketBefore==1)
                     {
                         CalculatorException e=new CalculatorException(CalculatorException.CAL_EXP_GRAMMAR);
@@ -174,6 +185,7 @@ public class Calculator {
 
                     signBefore=1;
                     LbracketBefore=0;
+                    RbracketBefore=1;
                     a=getNext();
                 }
             }
